@@ -1,6 +1,6 @@
 import React from "react";
 
-export const AppointmentsPage = () => {
+export const AppointmentsPage = (props) => {
   /*
   Define state variables for 
   appointment info
@@ -22,6 +22,9 @@ export const AppointmentsPage = () => {
       <hr />
       <section>
         <h2>Appointments</h2>
+        <ul>
+          {props.appointments.map( appointment => <li key={appointment.id}>{appointment.title}</li>)}
+        </ul>
       </section>
     </div>
   );
