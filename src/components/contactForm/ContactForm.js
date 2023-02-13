@@ -14,16 +14,10 @@ export const ContactForm = (props) => {
   const firstRender = useRef(true)
 
   useEffect(()=>{
-    if (firstRender.current) {
+    if (firstRender.current) { // useEffect has to be skipped on first render, or the component won't render
       firstRender.current = false  // it's no longer the first render
       return // skip the code below
     }
-    // if(isDuplicate){
-    //   inputField.style.borderColor ="red";
-    // }else{
-    //   inputField.style.borderColor = "black"
-    // }
-    // setIsDuplicate(props.contacts.some(contact => contact.name === name));
      
     setIsDuplicate((latestValue) => {
       const duplicateCheck = props.contacts.some(contact => contact.name === name);
@@ -32,9 +26,11 @@ export const ContactForm = (props) => {
       if (duplicateCheck){
         setIsDuplicate(true);
         inputField.style.borderColor ="red";
+        document.getElementById("duplicateAlert").style.display="block";
       }else{
         setIsDuplicate(false);
         inputField.style.borderColor = "black"
+        document.getElementById("duplicateAlert").style.display="none";
       }})
 
 
@@ -102,13 +98,13 @@ export const ContactForm = (props) => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input style={inputStyle} type="text" id="nameInput" name="name" value={name} placeholder="Name" onChange={handleTextChangeName}></input>
+        <p id="duplicateAlert">The contact already exists.</p>
         <label htmlFor="phone">Phone</label>
         <input type="text" id="id" name="phone" value={phone} placeholder="Phone" onChange={handleTextChangePhone}></input>
         <label htmlFor="email">E-Mail</label>
         <input type="text" id="id" name="email" value={email} placeholder="E-Mail" onChange={handleTextChangeEmail}></input>
         <input type="submit" value="submit" />
       </form>
-      <h1>Tralari</h1>
     </>
 
   );

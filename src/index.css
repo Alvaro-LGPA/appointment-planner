@@ -80,3 +80,8 @@ select {
 .tile-container {
   margin-bottom: 20px;
 }
+
+#duplicateAlert {
+  font-size: 14px;
+  color: red;
+}

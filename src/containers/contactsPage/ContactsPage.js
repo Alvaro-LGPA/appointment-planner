@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ContactForm } from '../../components/contactForm/ContactForm'
+import {TileList} from '../../components/tileList/TileList'
 export const ContactsPage = (props) => {
   /*
   Define state variables for 
@@ -32,9 +33,8 @@ export const ContactsPage = (props) => {
       <hr />
       <section>
         <h2>Contacts</h2>
-        <ul>
-          {props.contacts.map(contact => <li key={contact.id}>{contact.name}</li>)}
-        </ul>
+        
+        <TileList contacts={props.contacts}/>
       </section>
     </div>
   );
