@@ -6,50 +6,27 @@ export const ContactForm = (props) => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  const [isDuplicate, setIsDuplicate] = useState(false);
-
-  let inputStyle = {
-    borderColor: "black"
-  }
   const firstRender = useRef(true)
 
-  useEffect(()=>{
+  useEffect(() => {
     if (firstRender.current) { // useEffect has to be skipped on first render, or the component won't render
       firstRender.current = false  // it's no longer the first render
       return // skip the code below
-    }
-     
-    setIsDuplicate((latestValue) => {
-      const duplicateCheck = props.contacts.some(contact => contact.name === name);
-      console.log(`DuplicateCheck: ${duplicateCheck}`)
-      console.log(`Latest value: ${latestValue}`);
-      if (duplicateCheck){
-        setIsDuplicate(true);
-        inputField.style.borderColor ="red";
-        document.getElementById("duplicateAlert").style.display="block";
-      }else{
-        setIsDuplicate(false);
-        inputField.style.borderColor = "black"
-        document.getElementById("duplicateAlert").style.display="none";
-      }})
-
-
-  }, [name])
-  
-
-
-
- 
+    };
+    const duplicateCheck = props.contacts.some(contact => contact.name === name);
+    if (duplicateCheck) {
+      
+      document.getElementById("nameInput").style.borderColor = "red";
+      document.getElementById("duplicateAlert").style.display = "block";
+    } else {
+      document.getElementById("nameInput").style.borderColor = "black";
+      document.getElementById("duplicateAlert").style.display = "none";
+    };
+  }, [name, props.contacts])
 
   const handleTextChangeName = (event) => {
     setName(event.target.value);
-    checkNameDuplicate();
-
-    
   }
-
-  console.log(`Is duplicate outside: ${isDuplicate}`)
-  console.log(name)
 
   const handleTextChangePhone = (event) => {
     setPhone(event.target.value)
@@ -58,19 +35,6 @@ export const ContactForm = (props) => {
   const handleTextChangeEmail = (event) => {
     setEmail(event.target.value)
   }
-  const inputField = document.getElementById("nameInput")
-
-  const checkNameDuplicate = () => {
-    const inputField = document.getElementById("nameInput")
-    
-    // if(isDuplicate){
-    //   inputField.style.borderColor ="red";
-    // }else{
-    //   inputField.style.borderColor = "black"
-    // }
-  }
- 
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,11 +45,10 @@ export const ContactForm = (props) => {
     }
 
     const isDuplicate = props.contacts.some(contact => contact.name === name);
-    //alert(isDuplicate)
 
     if (isDuplicate) {
       alert("Contact already exists");
-    } else if (name.length > 0) {
+    } else if (name.length > 0) { // clean-up form
       props.addContact(newContact);
       setName("");
       setPhone("");
@@ -97,8 +60,8 @@ export const ContactForm = (props) => {
     <>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
-        <input style={inputStyle} type="text" id="nameInput" name="name" value={name} placeholder="Name" onChange={handleTextChangeName}></input>
-        <p id="duplicateAlert">The contact already exists.</p>
+        <input type="text" id="nameInput" name="name" value={name} placeholder="Name" onChange={handleTextChangeName}></input>
+        <p id="duplicateAlert" style={{ display: "none" }}>The contact already exists.</p>
         <label htmlFor="phone">Phone</label>
         <input type="text" id="id" name="phone" value={phone} placeholder="Phone" onChange={handleTextChangePhone}></input>
         <label htmlFor="email">E-Mail</label>
