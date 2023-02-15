@@ -84,7 +84,14 @@ export const ContactsPage = ({contacts, addContact}) => {
         addContact={addContact} 
         contacts={contacts} 
         handleSubmit={handleSubmit} 
-        handleTextChangeName={handleTextChangeName} handleTextChangePhone={handleTextChangePhone} handleTextChangeEmail={handleTextChangeEmail}/>
+        handleTextChangeName={handleTextChangeName} 
+        handleTextChangePhone={handleTextChangePhone} 
+        handleTextChangeEmail={handleTextChangeEmail}
+        currentName={currentName}
+        currentPhone={currentPhone}
+        currentEmail={currentEmail}
+        
+        />
       </section>
       <hr />
       <section>

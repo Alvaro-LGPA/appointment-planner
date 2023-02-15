@@ -12,6 +12,8 @@ export const AppointmentsPage = ({ appointments, contacts, addAppointment }) => 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
+  const [selected, setSelected] = useState(""); // drop-down reset
+
   const handleTextChangeTitle = (event) => {
     setTitle(event.target.value);
   }
@@ -26,6 +28,7 @@ export const AppointmentsPage = ({ appointments, contacts, addAppointment }) => 
 
   const handleChangeContact = (event) => {
     setContact(event.target.value);
+    setSelected(event.target.value);
   }
 
   const handleSubmit = (e) => {
@@ -44,6 +47,7 @@ export const AppointmentsPage = ({ appointments, contacts, addAppointment }) => 
       setContact("");
       setDate("");
       setTime("");
+      setSelected("")
     } else {
       return
     }
@@ -64,6 +68,7 @@ export const AppointmentsPage = ({ appointments, contacts, addAppointment }) => 
           time={time}
           contact={contact}
           contacts={contacts}
+          selected={selected}
         />
       </section>
       <hr />
