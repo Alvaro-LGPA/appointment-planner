@@ -1,19 +1,20 @@
 import React from "react";
 
-export const Tile = (props) => {
+export const Tile = ({objectData}) => {
+
+  const arrayToMap = Object.values(objectData);
+
   return (
+
     <div className="tile-container">
-      {props.contacts.map(contact => {
-        return(
-        <>
-          <p className="tile-title">{contact.name}</p>
-          <p className="tile">{contact.phone}</p>
-          <p className="tile">{contact.email}</p>
-        </>)
+
+      {arrayToMap.map((value, index) => {
+        if (index === 0) {
+          return <p key={index} className="tile-title">{value}</p>;
+        } else {
+          return <p key={index} className="tile">{value}</p>
+        }
       })}
-
     </div>
-  );
+  )
 };
-
-//key={contact.id}>{contact.name}

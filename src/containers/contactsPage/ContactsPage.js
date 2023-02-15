@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ContactForm } from '../../components/contactForm/ContactForm'
 import {TileList} from '../../components/tileList/TileList'
-export const ContactsPage = (props) => {
+export const ContactsPage = ({contacts, addContact}) => {
   /*
   Define state variables for 
   contact info and duplicate check
@@ -11,20 +11,20 @@ export const ContactsPage = (props) => {
   const [currentEmail, setCurrentEmail] = useState("");
 
 
-  const firstRender = useRef(true)
+ 
 
 
   /*
   Using hooks, check for contact name in the 
   contacts array variable in props
   */
-
+  const firstRender = useRef(true)
   useEffect(() => {
     if (firstRender.current) { // useEffect has to be skipped on first render, or the component won't render
       firstRender.current = false  // it's no longer the first render
       return // skip the code below
     };
-    const duplicateCheck = props.contacts.some(contact => contact.name === currentName);
+    const duplicateCheck = contacts.some(contact => contact.name === currentName);
     if (duplicateCheck) {
       
       document.getElementById("nameInput").style.borderColor = "red";
@@ -33,7 +33,7 @@ export const ContactsPage = (props) => {
       document.getElementById("nameInput").style.borderColor = "black";
       document.getElementById("duplicateAlert").style.display = "none";
     };
-  }, [currentName, props.contacts])
+  }, [currentName, contacts])
 
   const handleTextChangeName = (event) => {
     setCurrentName(event.target.value);
@@ -61,12 +61,12 @@ export const ContactsPage = (props) => {
       email: currentEmail
     }
 
-    const isDuplicate = props.contacts.some(contact => contact.name === currentName);
+    const isDuplicate = contacts.some(contact => contact.name === currentName);
 
     if (isDuplicate) {
       alert("Contact already exists");
     } else if (currentName.length > 0) { // clear data
-      props.addContact(newContact);
+      addContact(newContact);
       setCurrentName("");
       setCurrentPhone("");
       setCurrentEmail("");
@@ -80,12 +80,16 @@ export const ContactsPage = (props) => {
     <div>
       <section>
         <h2>Add Contact</h2>
-        <ContactForm addContact={props.addContact} contacts={props.contacts} handleSubmit={handleSubmit} handleTextChangeName={handleTextChangeName} handleTextChangePhone={handleTextChangePhone} handleTextChangeEmail={handleTextChangeEmail}/>
+        <ContactForm 
+        addContact={addContact} 
+        contacts={contacts} 
+        handleSubmit={handleSubmit} 
+        handleTextChangeName={handleTextChangeName} handleTextChangePhone={handleTextChangePhone} handleTextChangeEmail={handleTextChangeEmail}/>
       </section>
       <hr />
       <section>
         <h2>Contacts</h2>
-        <TileList contacts={props.contacts}/>
+        <TileList tiles={contacts}/>
       </section>
     </div>
   );

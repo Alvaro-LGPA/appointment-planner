@@ -39,12 +39,7 @@ function App() {
     time: "15:00h",
     id: 634
   }
-
-
   ]);
-
-
-  
 
   const ROUTES = {
     CONTACTS: "/contacts",
