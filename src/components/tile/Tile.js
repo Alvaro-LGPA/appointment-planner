@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Tile = ({objectData}) => {
+export const Tile = ({ objectData }) => {
 
   const arrayToMap = Object.values(objectData);
 
@@ -8,13 +8,7 @@ export const Tile = ({objectData}) => {
 
     <div className="tile-container">
 
-      {arrayToMap.map((value, index) => {
-        if (index === 0) {
-          return <p key={index} className="tile-title">{value}</p>;
-        } else {
-          return <p key={index} className="tile">{value}</p>
-        }
-      })}
+      {arrayToMap.map((value, index) =>  (<p key={index} className={index === 0 ? "tile-title" : "tile"}>{value}</p>))}
     </div>
   )
 };
