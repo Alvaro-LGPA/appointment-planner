@@ -5,6 +5,6 @@ export const TileList = ({ tiles }) => {
   
   return( 
   <div>
-    {tiles.map((element, index) =>  <Tile key={index} objectData={element} />)}
+    {tiles.map((element, index) =>  (<Tile key={index} objectData={element} />))}
     </div>)
     }
