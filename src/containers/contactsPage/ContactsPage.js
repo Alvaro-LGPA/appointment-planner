@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ContactForm } from '../../components/contactForm/ContactForm'
-import {TileList} from '../../components/tileList/TileList'
-export const ContactsPage = ({contacts, addContact}) => {
+import { TileList } from '../../components/tileList/TileList'
+
+export const ContactsPage = ({ contacts, addContact }) => {
   /*
   Define state variables for 
   contact info and duplicate check
   */
-  const [currentName, setCurrentName] = useState("");
-  const [currentPhone, setCurrentPhone] = useState("");
-  const [currentEmail, setCurrentEmail] = useState("");
-
-
- 
-
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [eMail, setEmail] = useState("");
 
   /*
   Using hooks, check for contact name in the 
@@ -24,79 +21,59 @@ export const ContactsPage = ({contacts, addContact}) => {
       firstRender.current = false  // it's no longer the first render
       return // skip the code below
     };
-    const duplicateCheck = contacts.some(contact => contact.name === currentName);
+    const duplicateCheck = contacts.some(contact => contact.name === name);
     if (duplicateCheck) {
-      
+
       document.getElementById("nameInput").style.borderColor = "red";
       document.getElementById("duplicateAlert").style.display = "block";
     } else {
       document.getElementById("nameInput").style.borderColor = "black";
       document.getElementById("duplicateAlert").style.display = "none";
     };
-  }, [currentName, contacts])
+  }, [name, contacts])
 
-  const handleTextChangeName = (event) => {
-    setCurrentName(event.target.value);
-  }
-
-  const handleTextChangePhone = (event) => {
-    setCurrentPhone(event.target.value)
-  }
-
-  const handleTextChangeEmail = (event) => {
-    setCurrentEmail(event.target.value)
-  }
-
-
+    /*
+    Add contact info and clear data if the contact name is not a duplicate
+    */
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    /*
-    Add contact info and clear data
-    if the contact name is not a duplicate
-    */
     const newContact = {
-      name: currentName,
-      phone: currentPhone,
-      email: currentEmail
+      name: name,
+      phone: phone,
+      email: eMail
     }
 
-    const isDuplicate = contacts.some(contact => contact.name === currentName);
+    const isDuplicate = contacts.some(contact => contact.name === name);
 
     if (isDuplicate) {
       alert("Contact already exists");
-    } else if (currentName.length > 0) { // clear data
+    } else if (name.length > 0) { // clear data
       addContact(newContact);
-      setCurrentName("");
-      setCurrentPhone("");
-      setCurrentEmail("");
+      setName("");
+      setPhone("");
+      setEmail("");
     }
-
   };
-
-  
 
   return (
     <div>
       <section>
         <h2>Add Contact</h2>
-        <ContactForm 
-        addContact={addContact} 
-        contacts={contacts} 
-        handleSubmit={handleSubmit} 
-        handleTextChangeName={handleTextChangeName} 
-        handleTextChangePhone={handleTextChangePhone} 
-        handleTextChangeEmail={handleTextChangeEmail}
-        currentName={currentName}
-        currentPhone={currentPhone}
-        currentEmail={currentEmail}
-        
+        <ContactForm
+          name={name}
+          setName={setName}
+          phone={phone}
+          setPhone={setPhone}
+          eMail={eMail}
+          setEmail={setEmail} 
+          handleSubmit={handleSubmit}
         />
       </section>
       <hr />
       <section>
         <h2>Contacts</h2>
-        <TileList tiles={contacts}/>
+        <TileList tiles={contacts} />
       </section>
     </div>
   );
