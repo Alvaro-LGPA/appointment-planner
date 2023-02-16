@@ -12,24 +12,6 @@ export const AppointmentsPage = ({ appointments, contacts, addAppointment }) => 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
-  const [selected, setSelected] = useState(""); // drop-down reset
-
-  const handleTextChangeTitle = (event) => {
-    setTitle(event.target.value);
-  }
-
-  const handleTextChangeDate = (event) => {
-    setDate(event.target.value)
-  }
-
-  const handleTextChangeTime = (event) => {
-    setTime(event.target.value)
-  }
-
-  const handleChangeContact = (event) => {
-    setContact(event.target.value);
-    setSelected(event.target.value);
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,7 +29,6 @@ export const AppointmentsPage = ({ appointments, contacts, addAppointment }) => 
       setContact("");
       setDate("");
       setTime("");
-      setSelected("")
     } else {
       return
     }
@@ -58,17 +39,16 @@ export const AppointmentsPage = ({ appointments, contacts, addAppointment }) => 
       <section>
         <h2>Add Appointment</h2>
         <AppointmentForm
-          handleTextChangeTitle={handleTextChangeTitle}
-          handleTextChangeDate={handleTextChangeDate}
-          handleTextChangeTime={handleTextChangeTime}
-          handleChangeContact={handleChangeContact}
           handleSubmit={handleSubmit}
           title={title}
+          setTitle={setTitle}
           date={date}
+          setDate={setDate}
           time={time}
+          setTime={setTime}
           contact={contact}
+          setContact={setContact}
           contacts={contacts}
-          selected={selected}
         />
       </section>
       <hr />
